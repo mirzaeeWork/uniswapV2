@@ -61,7 +61,7 @@ contract UniswapV2ERC20 is IUniswapV2ERC20 {
     }
 
     function approve(address spender, uint value) external returns (bool) {
-        _approve(msg.sender, spender, value);
+        _approve(tx.origin, spender, value);
         return true;
     }
 

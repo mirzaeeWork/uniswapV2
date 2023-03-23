@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.19+commit.7dd6d404"
+		"version": "0.8.3+commit.8d00100c"
 	},
 	"language": "Solidity",
 	"output": {
@@ -295,14 +295,6 @@
 			}
 		],
 		"devdoc": {
-			"events": {
-				"Approval(address,address,uint256)": {
-					"details": "Emitted when the allowance of a `spender` for an `owner` is set by a call to {approve}. `value` is the new allowance."
-				},
-				"Transfer(address,address,uint256)": {
-					"details": "Emitted when `value` tokens are moved from one account (`from`) to another (`to`). Note that `value` may be zero."
-				}
-			},
 			"kind": "dev",
 			"methods": {
 				"allowance(address,address)": {
@@ -352,9 +344,9 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"TOkenAERC20.sol": "ERC20"
+			"TOkenAERC20.sol": "TOkenAERC20"
 		},
-		"evmVersion": "paris",
+		"evmVersion": "istanbul",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -367,11 +359,11 @@
 	},
 	"sources": {
 		"TOkenAERC20.sol": {
-			"keccak256": "0x2ca25820a84385a1dd83b965d4f1c0d4a9a39f36191b6e0fc7d34d91975caed4",
+			"keccak256": "0xf72e772fe1a8b2127f87dd82403f4102dff6e78844e4bbd5f410618e5250978c",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://3af67b35dbb141dcb642b80dfe384283e58ce98e56a9ec6bedbb500341e7c397",
-				"dweb:/ipfs/QmXr9hMC56Eg2MHKqAG4jXWCWyY51HmkbYUbDdHvU5hJhd"
+				"bzz-raw://0d32b4a36d8517d5deb708fe92ced4f55617509d27a244e26106631c635e37a2",
+				"dweb:/ipfs/QmPUiAhCRaKLsqn3WSXGVsRCZBaEnEDfqhkzojpiSJpzKh"
 			]
 		},
 		"https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/IERC20.sol": {

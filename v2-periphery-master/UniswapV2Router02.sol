@@ -16,7 +16,18 @@ contract UniswapV2Router02 is IUniswapV2Router02 {
     address public immutable override WETH;
 
     modifier ensure(uint256 deadline) {
-        require(block.timestamp+60 >= block.timestamp, "UniswapV2Router: EXPIRED");
+        require(
+            deadline >= block.timestamp,
+            "UniswapV2Router: EXPIRED"
+        );
+        _;
+    }
+
+    modifier ensureadd() {
+        require(
+            block.timestamp + 60 >= block.timestamp,
+            "UniswapV2Router: EXPIRED"
+        );
         _;
     }
 
@@ -29,7 +40,7 @@ contract UniswapV2Router02 is IUniswapV2Router02 {
         assert(msg.sender == WETH); // only accept ETH via fallback from the WETH contract
     }
 
-        function showPair(address token)
+    function showPair(address token)
         public
         view
         returns (
@@ -49,9 +60,8 @@ contract UniswapV2Router02 is IUniswapV2Router02 {
         balance1 = IERC20(WETH).balanceOf(pair);
         amount0 = balance0.sub(_reserve0);
         amount1 = balance1.sub(_reserve1);
-        _totalSupply=IUniswapV2Pair(pair).totalSupply();
+        _totalSupply = IUniswapV2Pair(pair).totalSupply();
     }
-
 
     // **** ADD LIQUIDITY ****
     function _addLiquidity(
@@ -108,13 +118,12 @@ contract UniswapV2Router02 is IUniswapV2Router02 {
         uint256 amountBDesired,
         uint256 amountAMin,
         uint256 amountBMin,
-        address to,
-        uint256 deadline
+        address to
     )
         external
         virtual
         override
-        ensure(deadline)
+        ensureadd
         returns (
             uint256 amountA,
             uint256 amountB,
@@ -129,6 +138,8 @@ contract UniswapV2Router02 is IUniswapV2Router02 {
             amountAMin,
             amountBMin
         );
+        require(IERC20(tokenA).approve(address(this), amountADesired),"tokenA not approve") ;
+        require(IERC20(tokenB).approve(address(this), amountBDesired),"tokenB not approve") ;
         address pair = UniswapV2Library.pairFor(factory, tokenA, tokenB);
         TransferHelper.safeTransferFrom(tokenA, msg.sender, pair, amountA);
         TransferHelper.safeTransferFrom(tokenB, msg.sender, pair, amountB);
@@ -140,21 +151,20 @@ contract UniswapV2Router02 is IUniswapV2Router02 {
         uint256 amountTokenDesired,
         uint256 amountTokenMin,
         uint256 amountETHMin,
-        address to,
-        uint256 deadline
+        address to
     )
         external
         payable
         virtual
         override
-        ensure(deadline)
+         ensureadd
         returns (
             uint256 amountToken,
             uint256 amountETH,
             uint256 liquidity
         )
     {
-        IERC20(token).approve(address(this), amountTokenDesired);
+       require(IERC20(token).approve(address(this), amountTokenDesired),"token not approve") ;
         (amountToken, amountETH) = _addLiquidity(
             token,
             WETH,
@@ -175,6 +185,15 @@ contract UniswapV2Router02 is IUniswapV2Router02 {
     }
 
     // **** REMOVE LIQUIDITY ****
+    function getliquidity(address tokenA, address tokenB)
+        public
+        view
+        returns (uint256 liquidityForMsgSender)
+    {
+        address pair = UniswapV2Library.pairFor(factory, tokenA, tokenB);
+        liquidityForMsgSender = IUniswapV2Pair(pair).balanceOf(msg.sender);
+    }
+
     function removeLiquidity(
         address tokenA,
         address tokenB,
@@ -191,6 +210,7 @@ contract UniswapV2Router02 is IUniswapV2Router02 {
         returns (uint256 amountA, uint256 amountB)
     {
         address pair = UniswapV2Library.pairFor(factory, tokenA, tokenB);
+        require(IERC20(pair).approve(address(this), liquidity),"pair not approve") ;
         IUniswapV2Pair(pair).transferFrom(msg.sender, pair, liquidity); // send liquidity to pair
         (uint256 amount0, uint256 amount1) = IUniswapV2Pair(pair).burn(to);
         (address token0, ) = UniswapV2Library.sortTokens(tokenA, tokenB);
@@ -205,6 +225,8 @@ contract UniswapV2Router02 is IUniswapV2Router02 {
             amountB >= amountBMin,
             "UniswapV2Router: INSUFFICIENT_B_AMOUNT"
         );
+        // uint256 balance = IUniswapV2Pair(pair).balanceOf(msg.sender);
+        // IUniswapV2Pair(pair).setBalanceOf(msg.sender, balance - liquidity);
     }
 
     function removeLiquidityETH(

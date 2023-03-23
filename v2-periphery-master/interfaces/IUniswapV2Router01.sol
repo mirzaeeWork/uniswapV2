@@ -11,16 +11,14 @@ interface IUniswapV2Router01 {
         uint amountBDesired,
         uint amountAMin,
         uint amountBMin,
-        address to,
-        uint deadline
+        address to
     ) external returns (uint amountA, uint amountB, uint liquidity);
     function addLiquidityETH(
         address token,
         uint amountTokenDesired,
         uint amountTokenMin,
         uint amountETHMin,
-        address to,
-        uint deadline
+        address to
     ) external payable returns (uint amountToken, uint amountETH, uint liquidity);
     function removeLiquidity(
         address tokenA,

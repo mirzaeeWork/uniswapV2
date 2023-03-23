@@ -7,7 +7,7 @@ import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contr
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/Context.sol";
 
-contract ERC20 is Context, IERC20, IERC20Metadata {
+contract TOkenAERC20 is Context, IERC20, IERC20Metadata {
     mapping(address => uint256) private _balances;
 
     mapping(address => mapping(address => uint256)) private _allowances;
@@ -25,10 +25,10 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
      * construction.
      */
     constructor() {
-        _name = "Test_uniswap_V2";
-        _symbol = "TUV2";
+        _name = "Test_uniswap_TokenB";
+        _symbol = "TUb";
         _owner=msg.sender;
-        _totalSupply=10000000;
+        _totalSupply=1000*10**18;
         _balances[_owner]=_totalSupply;
 
     }

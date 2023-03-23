@@ -303,7 +303,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"FINAL/IETHPersonal.sol": "WETH9"
+			"IETHPersonal.sol": "WETH9"
 		},
 		"evmVersion": "istanbul",
 		"libraries": {},
@@ -317,7 +317,7 @@
 		"remappings": []
 	},
 	"sources": {
-		"FINAL/IETHPersonal.sol": {
+		"IETHPersonal.sol": {
 			"keccak256": "0x1ee6ec07d97742b6af98d4f4a705469c90c619e129dae91b1d85cbd5772b1f18",
 			"license": "GNU GENERAL PUBLIC LICENSE V3",
 			"urls": [
